@@ -1,0 +1,71 @@
+<?xml version='1.0'?><Wix xmlns='http://schemas.microsoft.com/wix/2006/wi'>
+   <Product Id='1D63AF16-3BB9-11E1-AAD9-41474824019B' Name='Dejour Clojure' Language='1033'
+            Version='1.0.0.0' Manufacturer='Russ Olsen' UpgradeCode='2C421CE8-3BB9-11E1-9E58-4E474824019B'>
+      <Package Description='Dejour Clojure Windows Installer'
+                Comments='Clojure is a dynamic programming language that targets the Java Virtual Machine.'
+                Manufacturer='Russ Olsen' InstallerVersion='200' Compressed='yes' />
+ 
+      <Media Id='1' Cabinet='product.cab' EmbedCab='yes' />
+ 
+      <!-- Check some requirements ONLY on "install", but not on modify or uninstall. -->
+      <Property Id="JAVA_CURRENT_VERSION">
+        <RegistrySearch Id="JRE_CURRENT_VERSION_REGSEARCH" Root="HKLM" Key="SOFTWARE\JavaSoft\Java Runtime Environment" Name="CurrentVersion" Type="raw" Win64="yes" />
+      </Property> 
+
+      <Condition Message="Java Runtime Environment is not installed or is outdated. Please install Oracle JRE 1.5 or later."><![CDATA[Installed OR (JAVA_CURRENT_VERSION >= "1.5")]]></Condition>
+
+      <Directory Id='TARGETDIR' Name='SourceDir'>
+        <Directory Id='ProgramFilesFolder' Name='PFiles'>
+          <Directory Id='DejourDir' Name='Dejour'>
+            <Directory Id='binDir' Name='bin'></Directory> 
+            <Directory Id='examplesDir' Name='examples'></Directory>
+            <Directory Id='libDir' Name='lib'></Directory>
+            <Directory Id='syslibDir' Name='syslib'></Directory>
+
+            <Component Id="EnvironmentVariables" Guid="8680c13c-8f85-4b06-8d27-6307a1ba1225">
+              <CreateFolder/>
+              <Environment Id="PATH" Name="PATH" Value="[DejourDir]bin" Permanent="yes" Part="last" Action="set" System="no" /> 
+              <Environment Id="CLOJURE_HOME" Name="CLOJURE_HOME" Value="[DejourDir]lib" Permanent="yes" Part="all" Action="set" System="no" /> 
+            </Component>
+          </Directory>
+        </Directory>
+
+          <!-- Shortcut to the configuration utility in the Windows Start menu -->
+        <Directory Id="ProgramMenuFolder">
+           <Directory Id="StartMenuDejourDir" Name="Dejour" />
+        </Directory>
+      </Directory>
+      
+       <DirectoryRef Id="StartMenuDejourDir">
+         <Component Id="DejourStartmenuShortcuts" Guid="8680c13c-8f85-4b06-8c97-6107e1bd1205">
+           <Shortcut Id="ApplicationStartMenuShortcut"
+                     Name="Clojure REPL"
+                     Description="Clojure Read Eval Print Loop"
+                     Target="[BinDir]clj.exe"
+                     WorkingDirectory="DejourDir"/>
+
+           <Shortcut Id="UninstallProduct"             
+                     Name="Uninstall Clojure"
+                     Target="[SystemFolder]msiexec.exe"
+                     Arguments="/x [ProductCode]"
+                     Description="Uninstalls Dejour setup of Clojure." />
+                   
+           <RemoveFolder Id="StartMenuDejourDir" On="uninstall"/>
+           <RegistryValue Root="HKCU" Key="SOFTWARE\Dejour\Dejour Windows Installer"
+                             Name="Installed" Type="integer" Value="1" KeyPath="yes"/>
+         </Component>
+       </DirectoryRef>
+
+
+      <Feature Id='Libs' Title='Clojure Librarys' Level='1'>
+        <ComponentGroupRef Id='BinComponentGroup' /> 
+        <ComponentGroupRef Id='ExamplesComponentGroup' />
+        <ComponentGroupRef Id='LibComponentGroup' />
+        <ComponentGroupRef Id='SyslibComponentGroup' />
+
+        <ComponentRef Id='EnvironmentVariables' />
+        <ComponentRef Id='DejourStartmenuShortcuts' />
+      </Feature>
+
+   </Product>
+</Wix>
