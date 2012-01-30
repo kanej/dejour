@@ -20,7 +20,11 @@
             <Directory Id='binDir' Name='bin'></Directory> 
             <Directory Id='examplesDir' Name='examples'></Directory>
             <Directory Id='libDir' Name='lib'></Directory>
-            <Directory Id='syslibDir' Name='syslib'></Directory>
+            <Directory Id='syslibDir' Name='syslib'>
+              <Component Id="SyslibComponent" Guid="38115320-4B6A-11E1-9E03-77DB4724019B" >
+                <File Id="fil21FAlll85E58DDE966DF87C9884A887C" KeyPath="yes" Name="jline.jar" Source="downloads\jline\jline-0.9.92.jar" />
+              </Component>
+            </Directory>
 
             <Component Id="EnvironmentVariables" Guid="8680c13c-8f85-4b06-8d27-6307a1ba1225">
               <CreateFolder/>
@@ -61,7 +65,8 @@
         <ComponentGroupRef Id='BinComponentGroup' /> 
         <ComponentGroupRef Id='ExamplesComponentGroup' />
         <ComponentGroupRef Id='LibComponentGroup' />
-        <ComponentGroupRef Id='SyslibComponentGroup' />
+
+        <ComponentRef Id='SyslibComponent' />
 
         <ComponentRef Id='EnvironmentVariables' />
         <ComponentRef Id='DejourStartmenuShortcuts' />

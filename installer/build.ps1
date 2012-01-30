@@ -19,7 +19,6 @@ cp .\installer\dejour.wxs .\tmp\dejour.wxs
 generate-wixfragment-from-dir -sourcedir bin -targetdir bin
 generate-wixfragment-from-dir -sourcedir examples -targetdir examples
 generate-wixfragment-from-dir -sourcedir "downloads/complete-1.3.0" -targetdir lib
-generate-wixfragment-from-dir -sourcedir "downloads/jline" -targetdir syslib
 
 # Build the msi using wix
 & $wixcandle -nologo .\tmp\*.wxs -o .\tmp\ -dbinDir=bin -dexamplesDir=examples "-dlibDir=downloads/complete-1.3.0" -dsyslibDir=downloads/jline
