@@ -45,7 +45,7 @@
            <Shortcut Id="ApplicationStartMenuShortcut"
                      Name="Clojure REPL"
                      Description="Clojure Read Eval Print Loop"
-                     Target="[BinDir]clj.exe"
+                     Target="[binDir]clj.exe"
                      WorkingDirectory="DejourDir"/>
 
            <Shortcut Id="UninstallProduct"             
@@ -60,8 +60,19 @@
          </Component>
        </DirectoryRef>
 
+       <!-- User Interface --> 
+      <WixVariable Id="WixUILicenseRtf" Value=".\License.rtf" /> 
+      <WixVariable Id="WixUIBannerBmp" Value=".\images\clojure.banner.bmp" />
+      <WixVariable Id="WixUIDialogBmp" Value=".\images\clojure.dialog.bmp" />
+      <Property Id='WIXUI_INSTALLDIR' Value='DejourDir' />
+      <UIRef Id="WixUI_InstallDir" />
 
-      <Feature Id='Libs' Title='Clojure Librarys' Level='1'>
+      <!-- Add and Remove Programs Section -->
+      <Property Id="ARPPRODUCTICON" Value="ClojureIcon" />
+      <Icon Id="ClojureIcon" SourceFile=".\images\clojure.ico" />
+      <Property Id='ARPURLINFOABOUT'>https://github.com/russolsen/dejour</Property>
+
+      <Feature Id='Libs' Title='Clojure Libraries' Level='1'>
         <ComponentGroupRef Id='BinComponentGroup' /> 
         <ComponentGroupRef Id='ExamplesComponentGroup' />
         <ComponentGroupRef Id='LibComponentGroup' />
