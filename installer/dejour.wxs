@@ -8,11 +8,11 @@
       <Media Id='1' Cabinet='product.cab' EmbedCab='yes' />
  
       <!-- Check some requirements ONLY on "install", but not on modify or uninstall. -->
-      <Property Id="JAVA_CURRENT_VERSION">
+      <!--<Property Id="JAVA_CURRENT_VERSION">
         <RegistrySearch Id="JRE_CURRENT_VERSION_REGSEARCH" Root="HKLM" Key="SOFTWARE\JavaSoft\Java Runtime Environment" Name="CurrentVersion" Type="raw" Win64="yes" />
       </Property> 
 
-      <Condition Message="Java Runtime Environment is not installed or is outdated. Please install Oracle JRE 1.5 or later."><![CDATA[Installed OR (JAVA_CURRENT_VERSION >= "1.5")]]></Condition>
+      <Condition Message="Java Runtime Environment is not installed or is outdated. Please install Oracle JRE 1.5 or later."><![CDATA[Installed OR (JAVA_CURRENT_VERSION >= "1.5")]]></Condition>-->
 
       <Directory Id='TARGETDIR' Name='SourceDir'>
         <Directory Id='ProgramFilesFolder' Name='PFiles'>
