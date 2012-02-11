@@ -1,7 +1,8 @@
-$wixcandle = 'C:\Program Files (x86)\Windows Installer XML v3.5\bin\candle.exe'
-$wixlight = 'C:\Program Files (x86)\Windows Installer XML v3.5\bin\light.exe'
-$wixheat = 'C:\Program Files (x86)\Windows Installer XML v3.5\bin\heat.exe'
-$wixUIExtentsion = 'C:\Program Files (x86)\Windows Installer XML v3.5\bin\WixUIExtension.dll'
+$wixDir = 'C:\Program Files (x86)\Windows Installer XML v3.5\bin\'
+$wixcandle = $wixDir + 'candle.exe'
+$wixlight = $wixDir + 'light.exe'
+$wixheat = $wixDir + 'heat.exe'
+$wixUIExtentsion = $widDir + 'WixUIExtension.dll'
 
 function generate-wixfragment-from-dir($sourcedir, $targetdir) {
   $capitalisedTargetDir= $targetdir.substring(0,1).ToUpper()+$targetdir.substring(1)
